@@ -116,7 +116,9 @@ $ docker compose -f docker-compose-cluster.yml up -d
  ✔ Container kc2    Running 
  ✔ Container kc_lb  Running
 ```
-Check logs again, two members in cluster pool now
+Check logs again, two members in cluster pool now. 
+
+If you access http://keycloak.com.au:8180, it works fine
 
 > Starting rebalance with members [b31f28d4c94a-31765, 462ae7fcf1a3-41736], phase READ_OLD_WRITE_ALL, topology id 7
 > Finished rebalance with members [b31f28d4c94a-31765, 462ae7fcf1a3-41736], topology id 10
