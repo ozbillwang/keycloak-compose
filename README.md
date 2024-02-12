@@ -45,7 +45,7 @@ go with "Administration Console ",  then login with `admin / password `
 
 ## Keycloak Cluster with Docker Compose - Up and Running in Seconds
 
-Yes, the solution is ready now with help from Niko Köbler (@dasniko) with his cool video https://www.youtube.com/watch?v=P96VQkBBNxU
+Yes, the solution is ready now with help from Niko Köbler (@dasniko) with [his cool video](https://www.youtube.com/watch?v=P96VQkBBNxU)
 
 ### Step 1
 
@@ -124,3 +124,13 @@ If you access http://keycloak.com.au:8180, it works fine
 > Finished rebalance with members [b31f28d4c94a-31765, 462ae7fcf1a3-41736], topology id 10
 
 ![image](https://github.com/ozbillwang/keycloak-compose/assets/8954908/728ee4a4-10a2-4b8e-a6d7-8641fde0f6c0)
+
+### Reference
+
+https://www.keycloak.org/2019/05/keycloak-cluster-setup.html
+
+https://www.youtube.com/watch?v=P96VQkBBNxU
+
+https://www.keycloak.org/2019/08/keycloak-jdbc-ping
+
+http://jgroups.org/manual/#_jdbc_ping
