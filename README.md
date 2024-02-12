@@ -112,7 +112,7 @@ When you refresh the website http://keycloak.com.au:8180, it takes about 5~10 se
 $ docker compose -f docker-compose-cluster.yml up -d
 
  ✔ Container db     Running 
- ✔ Container kc1    Started    # because I kill it before
+ ✔ Container kc1    Started    # because I killed it before
  ✔ Container kc2    Running 
  ✔ Container kc_lb  Running
 ```
