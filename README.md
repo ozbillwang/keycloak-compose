@@ -79,7 +79,7 @@ docker logs -f <kc1 or kc2 container id>
 
 ![1_rSVRVOgXGqqzCHgmZmaAAg](https://github.com/ozbillwang/keycloak-compose/assets/8954908/d62be1fc-5468-41de-b964-eaee0079d4f4)
 
-* Check the cluster logs, there should be two in cluster pool now
+* Check the cluster logs, there should be two members in cluster pool now
 
 >Received **new cluster view for channel** ISPN: [b31f28d4c94a-31765|1] (2) [b31f28d4c94a-31765, bc873530c08b-24274]
 >Starting rebalance with members [b31f28d4c94a-31765, bc873530c08b-24274]
@@ -99,7 +99,7 @@ Test the fail over and cluster realiable.
 docker ps -a
 docker rm -f keycloak-compose-kc2
 ```
-Check logs, you will only see one in Cluster pool now.
+Check logs, you will only see one member in Cluster pool now.
 
 >  Updating cache members list [b31f28d4c94a-31765], topology id 6
 
@@ -116,7 +116,7 @@ $ docker compose -f docker-compose-cluster.yml up -d
  ✔ Container kc2    Running 
  ✔ Container kc_lb  Running
 ```
-Check logs again, two in cluster pool now
+Check logs again, two members in cluster pool now
 
 > Starting rebalance with members [b31f28d4c94a-31765, 462ae7fcf1a3-41736], phase READ_OLD_WRITE_ALL, topology id 7
 > Finished rebalance with members [b31f28d4c94a-31765, 462ae7fcf1a3-41736], topology id 10
