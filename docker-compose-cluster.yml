@@ -1,0 +1,107 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: db
+    # for production, recommend postgres v15+
+    image: "postgres:15.5"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      #- ./sql:/docker-entrypoint-initdb.d/:ro # turn it on, if you need run init DB
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: keycloak
+      POSTGRES_HOST: postgres
+    networks:
+      - local
+    ports:
+      - "5432:5432"
+
+  kc1:
+    container_name: kc1 
+    build:
+      context: .
+      args:
+        # test well with 21.0.0 and 22.0.0
+        KEYCLOAK_VERSION: latest
+    command: ['start', '--optimized']
+    depends_on:
+      - "postgres"
+    environment:
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
+      KC_DB_PASSWORD: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/keycloak
+      KC_DB_USERNAME: postgres
+      KC_HEALTH_ENABLED: 'true'
+      KC_HTTP_ENABLED: 'true'
+      KC_METRICS_ENABLED: 'true'
+      # KC_HOSTNAME: keycloak.com.au
+      # KC_HOSTNAME_PORT: 8180
+      KC_HOSTNAME_URL: http://localhost:8180
+      KC_PROXY: reencrypt
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      PROXY_ADDRESS_FORWARDING: "true"
+      CACHE_OWNERS_COUNT: 2
+      CACHE_OWNERS_AUTH_SESSIONS_COUNT: 2
+      JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
+      JGROUPS_DISCOVERY_PROPERTIES: "datasource_jndi_name=java:jboss/datasources/KeycloakDS,initialize_sql=\"CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))\",remove_all_data_on_view_change=true"
+    networks:
+      - local
+
+  kc2:
+    container_name: kc2
+    build:
+      context: .
+      args:
+        KEYCLOAK_VERSION: latest
+    command: ['start', '--optimized']
+    depends_on:
+      - "postgres"
+    environment:
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
+      KC_DB_PASSWORD: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/keycloak
+      KC_DB_USERNAME: postgres
+      KC_HEALTH_ENABLED: 'true'
+      KC_HTTP_ENABLED: 'true'
+      KC_METRICS_ENABLED: 'true'
+      # KC_HOSTNAME: keycloak.com.au
+      # KC_HOSTNAME_PORT: 8180
+      KC_HOSTNAME_URL: http://localhost:8180
+      KC_PROXY: reencrypt
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      PROXY_ADDRESS_FORWARDING: "true"
+      CACHE_OWNERS_COUNT: 2
+      CACHE_OWNERS_AUTH_SESSIONS_COUNT: 2
+      JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
+      JGROUPS_DISCOVERY_PROPERTIES: "datasource_jndi_name=java:jboss/datasources/KeycloakDS,initialize_sql=\"CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))\",remove_all_data_on_view_change=true"
+    networks:
+      - local
+
+  lb:
+    container_name: kc_lb
+    image: nginx:alpine
+    volumes:
+      - ${PWD}/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8180:8180"
+    depends_on:
+      - kc1
+      - kc2
+    networks:
+      - local
+
+networks:
+  local:
+    name: local
+    driver: bridge
+
+volumes:
+  postgres_data:
