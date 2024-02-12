@@ -10,6 +10,8 @@ This repo is mainly set for my blogs
 
 [Run Keycloak locally with Docker compose](https://medium.com/@ozbillwang/run-keycloak-locally-with-docker-compose-db9a9f2fb437)
 
+[Keycloak Cluster with Docker Compose — Up and Running in Seconds](https://medium.com/@ozbillwang/keycloak-cluster-with-docker-compose-up-and-running-in-seconds-0c3223df4f75)
+
 [Keycloak Backup and Restore](https://medium.com/@ozbillwang/keycloak-backup-and-restore-eea87d294b3c)
 
 ## Keycloak (single instance) with Docker Compose - Up and Running in Seconds
