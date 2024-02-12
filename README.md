@@ -1,8 +1,8 @@
 # keycloak-compose
 
 Run keycloak and postgresql with docker compose by two scenarios
-* Keycloak with simple instance
-* Keycloak with cluster (experimental for your understanding of how Keycloak clusters work)
+* [Keycloak with simple instance](https://github.com/ozbillwang/keycloak-compose/blob/master/README.md#keycloak-single-instance-with-docker-compose-up-and-running-inseconds)
+* [Keycloak with cluster (experimental for your understanding of how Keycloak clusters work)](https://github.com/ozbillwang/keycloak-compose/blob/master/README.md#keycloak-cluster-with-docker-compose-up-and-running-inseconds)
 
 This repo is mainly set for my blogs
 
