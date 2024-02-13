@@ -30,7 +30,7 @@ update `/etc/hosts` , add below lines
 
 On Windows, the file path is usually: `c:\Windows\System32\Drivers\etc\hosts`
 
-Notes: In many online documents and videos, Keycloak experts often recommend starting the Keycloak service on localhost with a specific port. However, this practice is not advisable, especially when working in a real environment. Instead, it’s more practical to configure Keycloak with a DNS-ready setup. This also allows you to test HTTPS access with SSL certifications later on if needed.
+**Notes**: In many online documents and videos, Keycloak experts often recommend starting the Keycloak service on **localhost** with a specific port. However, this practice is not advisable, especially when working in a real environment. Instead, it’s more practical to configure Keycloak with a DNS-ready setup. This also allows you to test HTTPS access with SSL certifications later on if needed.
 
 ### Step 2
 ```
