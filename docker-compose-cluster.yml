@@ -29,8 +29,8 @@ services:
     build:
       context: .
       args:
-        # test well with 21.0.0 and 22.0.0
-        KEYCLOAK_VERSION: latest
+        # test well with 21.0.0, 22.0.0 and latest
+        KEYCLOAK_VERSION: 22.0.0
     command: ['start', '--optimized']
     depends_on:
       - "postgres"
@@ -62,7 +62,7 @@ services:
     build:
       context: .
       args:
-        KEYCLOAK_VERSION: latest
+        KEYCLOAK_VERSION: 22.0.0
     command: ['start', '--optimized']
     depends_on:
       - "postgres"
